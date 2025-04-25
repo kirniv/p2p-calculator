@@ -23,7 +23,7 @@
     }
 
     input[type="number"], input[type="text"] {
-      width: 70%;
+      width: 50%;
       padding: 5px;
       font-size: 14px;
       margin-top: 5px;
@@ -39,15 +39,14 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 25px;
+      margin-top: 30px;
       background-color: #fff;
     }
 
-    th, td {
-      text-align: left;
+    td {
       padding: 10px;
-      border-bottom: 1px solid #ccc;
       vertical-align: top;
+      border-bottom: 1px solid #ccc;
     }
 
     .highlight {
@@ -141,48 +140,49 @@
             <td><div class="result-comment">*твоя чистая доходность при полном оборачивании депозита</div></td>
           </tr>
           <tr>
-            <td>Расход на покупку (F): ${F.toFixed(2)} руб</td>
-            <td><div class="result-comment">Потрачено на покупку USD в рублях</div></td>
+            <td>Расход на покупку (F):</td>
+            <td>${F.toFixed(2)} руб<br><span class="result-comment">Потрачено на покупку USD в рублях</span></td>
           </tr>
           <tr>
-            <td>Сумма депозита по курсу площадки (G): ${G.toFixed(2)} руб</td>
-            <td><div class="result-comment">Какой рублевый эквивалент получился при вводе USD по курсу площадки</div></td>
+            <td>Сумма депозита по курсу площадки (G):</td>
+            <td>${G.toFixed(2)} руб<br><span class="result-comment">Какой рублевый эквивалент получился при вводе USD по курсу площадки</span></td>
           </tr>
           <tr>
-            <td>Потери на депозите (J): ${(J * 100).toFixed(2)}%</td>
-            <td><div class="result-comment">Разница между тем, что потратил, и тем, что получилось на площадке</div></td>
+            <td>Потери на депозите (J):</td>
+            <td>${(J * 100).toFixed(2)}%<br><span class="result-comment">Разница между тем, что потратил, и тем, что получилось на площадке</span></td>
           </tr>
           <tr>
-            <td>Размер ордера в рублях (H): ${H.toFixed(2)} руб</td>
-            <td><div class="result-comment">Полный объем ордеров, которые ты продашь</div></td>
+            <td>Размер ордера в рублях (H):</td>
+            <td>${H.toFixed(2)} руб<br><span class="result-comment">Полный объем ордеров, которые ты продашь</span></td>
           </tr>
           <tr>
-            <td>Размер ордера в USD (I): ${I.toFixed(2)} USD</td>
-            <td><div class="result-comment">Сколько долларов ты обернул</div></td>
+            <td>Размер ордера в USD (I):</td>
+            <td>${I.toFixed(2)} USD<br><span class="result-comment">Сколько долларов ты обернул</span></td>
           </tr>
           <tr>
-            <td>Комиссия в рублях (K): ${K.toFixed(2)} руб</td>
-            <td><div class="result-comment">Сколько с тебя сняли комиссий на площадке</div></td>
+            <td>Комиссия в рублях (K):</td>
+            <td>${K.toFixed(2)} руб<br><span class="result-comment">Сколько с тебя сняли комиссий на площадке</span></td>
           </tr>
           <tr>
-            <td>Комиссия в долларах (L): ${L.toFixed(2)} USD</td>
-            <td><div class="result-comment">Эквивалент комиссии в долларах</div></td>
+            <td>Комиссия в долларах (L):</td>
+            <td>${L.toFixed(2)} USD<br><span class="result-comment">Эквивалент комиссии в долларах</span></td>
           </tr>
           <tr>
-            <td>Обмен комиссии в рубли (M): ${M.toFixed(2)} руб</td>
-            <td><div class="result-comment">Ты получил эти рубли, продав комиссию в USD</div></td>
+            <td>Обмен комиссии в рубли (M):</td>
+            <td>${M.toFixed(2)} руб<br><span class="result-comment">Сколько ты получил за комиссию при продаже в рублях</span></td>
           </tr>
           <tr>
-            <td>Доход трейдера в рублях (N): ${N.toFixed(2)} руб</td>
-            <td><div class="result-comment">Суммарно все рубли после продаж</div></td>
+            <td>Доход трейдера в рублях (N):</td>
+            <td>${N.toFixed(2)} руб<br><span class="result-comment">Сколько всего ты получил с учетом комиссии</span></td>
           </tr>
           <tr>
-            <td>Прибыль (O): ${O.toFixed(2)} руб</td>
-            <td><div class="result-comment">Итоговая прибыль по сделке</div></td>
+            <td>Прибыль (O):</td>
+            <td>${O.toFixed(2)} руб<br><span class="result-comment">Итоговая чистая прибыль</span></td>
           </tr>
         </table>
       `;
     }
   </script>
+
 </body>
 </html>
