@@ -1,28 +1,93 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>P2P Калькулятор Доходности</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>P2P Калькулятор</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    input { margin-bottom: 10px; padding: 5px; width: 200px; }
-    label { display: block; margin-top: 10px; }
-    .result { margin-top: 20px; font-weight: bold; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background-color: #f7f7f7;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="number"] {
+      width: 150px;
+      padding: 4px;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .comment {
+      font-size: 12px;
+      font-style: italic;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+
+    table {
+      margin-top: 30px;
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    td {
+      padding: 8px;
+      vertical-align: top;
+    }
+
+    .result-comment {
+      font-size: 12px;
+      font-style: italic;
+      color: #666;
+      margin-top: 4px;
+    }
   </style>
 </head>
 <body>
 
-  <h2>P2P Калькулятор Доходности</h2>
+  <h2>P2P Калькулятор</h2>
 
-  <label>Курс покупки USD (нал, A): <input type="number" id="A" step="0.01" /></label>
-  <label>Размер депозита в USD (B): <input type="number" id="B" step="0.01" /></label>
-  <label>Курс площадки USD (C): <input type="number" id="C" step="0.01" /></label>
-  <label>Комиссия трейдера в % (D): <input type="number" id="D" step="0.01" /></label>
-  <label>Курс продажи USD (нал, E): <input type="number" id="E" step="0.01" /></label>
+  <label for="A">Курс покупки USD (нал, A):</label>
+  <input type="number" id="A" step="0.01">
+  <div class="comment">Укажи курс, по которому ты покупаешь USD наличными</div>
+
+  <label for="B">Размер депозита в USD (B):</label>
+  <input type="number" id="B" step="0.01">
+  <div class="comment">Укажи размер депозита, на который ты хочешь сделать расчет</div>
+
+  <label for="C">Курс площадки USD (C):</label>
+  <input type="number" id="C" step="0.01">
+  <div class="comment">Укажи курс площадки</div>
+
+  <label for="D">Комиссия трейдера в % (D):</label>
+  <input type="number" id="D" step="0.01">
+  <div class="comment">Укажи размер своей комиссии</div>
+
+  <label for="E">Курс продажи USD (нал, E):</label>
+  <input type="number" id="E" step="0.01">
+  <div class="comment">Укажи курс, по которому ты продаешь USD наличными</div>
 
   <button onclick="calculate()">Рассчитать</button>
 
-  <div class="result" id="output"></div>
+  <div id="result"></div>
 
   <script>
     function calculate() {
@@ -32,33 +97,34 @@
       const D = parseFloat(document.getElementById("D").value) / 100;
       const E = parseFloat(document.getElementById("E").value);
 
-      const F = A * B;              // Расход в рублях на покупку депозита
-      const G = B * C;              // Сумма депозита в рублях по курсу площадки
-      const J = G / F - 1;          // Потери в % при депозите
-      const H = G;                  // Размер ордера в рублях
-      const I = H / C;              // Размер ордера в долларах
-      const K = H * D;              // Комиссия в рублях
-      const L = K / C;              // Комиссия в долларах
-      const M = L * E;              // Обмен в рубли
-      const N = M + H;              // Итого доход в рублях
-      const O = N - F;              // Прибыль
-      const P = O / F;              // Доходность
+      const F = A * B;
+      const G = B * C;
+      const J = G / F - 1;
+      const H = G;
+      const I = H / C;
+      const K = H * D;
+      const L = K / C;
+      const M = L * E;
+      const N = M + H;
+      const O = N - F;
+      const P = O / F;
 
-      document.getElementById("output").innerHTML = `
-        <p><strong>Расход на покупку (F):</strong> ${F.toFixed(2)} RUB</p>
-        <p><strong>Сумма депозита по курсу площадки (G):</strong> ${G.toFixed(2)} RUB</p>
-        <p><strong>Потери на депозите (J):</strong> ${(J * 100).toFixed(2)}%</p>
-        <p><strong>Размер ордера в рублях (H):</strong> ${H.toFixed(2)} RUB</p>
-        <p><strong>Размер ордера в USD (I):</strong> ${I.toFixed(2)} USD</p>
-        <p><strong>Комиссия в рублях (K):</strong> ${K.toFixed(2)} RUB</p>
-        <p><strong>Комиссия в долларах (L):</strong> ${L.toFixed(2)} USD</p>
-        <p><strong>Обмен комиссии в рубли (M):</strong> ${M.toFixed(2)} RUB</p>
-        <p><strong>Доход трейдера в рублях (N):</strong> ${N.toFixed(2)} RUB</p>
-        <p><strong>Прибыль (O):</strong> ${O.toFixed(2)} RUB</p>
-        <p><strong>Чистая доходность (P):</strong> ${(P * 100).toFixed(2)}%</p>
+      document.getElementById("result").innerHTML = `
+        <table>
+          <tr><td>Расход на покупку (F):</td><td>${F.toFixed(2)} руб<br><div class="result-comment">Сколько рублей потрачено на покупку депозита</div></td></tr>
+          <tr><td>Сумма депозита по курсу площадки (G):</td><td>${G.toFixed(2)} руб<br><div class="result-comment">Сколько трейдер получил на площадке в рублях по курсу площадки</div></td></tr>
+          <tr><td>Потери на депозите (J):</td><td>${(J * 100).toFixed(2)}%<br><div class="result-comment">Сколько трейдер потерял при вводе депозита из-за разницы курсов покупки и площадки</div></td></tr>
+          <tr><td>Размер ордера в рублях (H):</td><td>${H.toFixed(2)} руб<br><div class="result-comment">Полная сумма ордера - для расчета равно сумме депозита</div></td></tr>
+          <tr><td>Размер ордера в USD (I):</td><td>${I.toFixed(2)} USD<br><div class="result-comment">Пересчитано в доллары по курсу площадки</div></td></tr>
+          <tr><td>Комиссия в рублях (K):</td><td>${K.toFixed(2)} руб<br><div class="result-comment">Размер комиссии трейдера в рублях</div></td></tr>
+          <tr><td>Комиссия в долларах (L):</td><td>${L.toFixed(2)} USD<br><div class="result-comment">Размер комиссии трейдера в рублях</div></td></tr>
+          <tr><td>Обмен комиссии в рубли (M):</td><td>${M.toFixed(2)} руб<br><div class="result-comment">Сколько получится при продаже комиссии за наличные</div></td></tr>
+          <tr><td>Доход трейдера в рублях (N):</td><td>${N.toFixed(2)} руб<br><div class="result-comment">Доход трейдера с учетом комиссии</div></td></tr>
+          <tr><td>Прибыль (O):</td><td>${O.toFixed(2)} руб<br><div class="result-comment">Разница между доходом и суммой на покупку депозита</div></td></tr>
+          <tr><td>Чистая доходность (P):</td><td>${(P * 100).toFixed(2)}%<br><div class="result-comment">Чистая доходность при полном оборачивании депозита</div></td></tr>
+        </table>
       `;
     }
   </script>
-
 </body>
 </html>
