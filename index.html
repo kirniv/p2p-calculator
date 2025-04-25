@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>P2P Калькулятор Доходности</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input { margin-bottom: 10px; padding: 5px; width: 200px; }
+    label { display: block; margin-top: 10px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>P2P Калькулятор Доходности</h2>
+
+  <label>Курс покупки USD (нал, A): <input type="number" id="A" step="0.01" /></label>
+  <label>Размер депозита в USD (B): <input type="number" id="B" step="0.01" /></label>
+  <label>Курс площадки USD (C): <input type="number" id="C" step="0.01" /></label>
+  <label>Комиссия трейдера в % (D): <input type="number" id="D" step="0.01" /></label>
+  <label>Курс продажи USD (нал, E): <input type="number" id="E" step="0.01" /></label>
+
+  <button onclick="calculate()">Рассчитать</button>
+
+  <div class="result" id="output"></div>
+
+  <script>
+    function calculate() {
+      const A = parseFloat(document.getElementById("A").value);
+      const B = parseFloat(document.getElementById("B").value);
+      const C = parseFloat(document.getElementById("C").value);
+      const D = parseFloat(document.getElementById("D").value) / 100;
+      const E = parseFloat(document.getElementById("E").value);
+
+      const F = A * B;              // Расход в рублях на покупку депозита
+      const G = B * C;              // Сумма депозита в рублях по курсу площадки
+      const J = G / F - 1;          // Потери в % при депозите
+      const H = G;                  // Размер ордера в рублях
+      const I = H / C;              // Размер ордера в долларах
+      const K = H * D;              // Комиссия в рублях
+      const L = K / C;              // Комиссия в долларах
+      const M = L * E;              // Обмен в рубли
+      const N = M + H;              // Итого доход в рублях
+      const O = N - F;              // Прибыль
+      const P = O / F;              // Доходность
+
+      document.getElementById("output").innerHTML = `
+        <p><strong>Расход на покупку (F):</strong> ${F.toFixed(2)} RUB</p>
+        <p><strong>Сумма депозита по курсу площадки (G):</strong> ${G.toFixed(2)} RUB</p>
+        <p><strong>Потери на депозите (J):</strong> ${(J * 100).toFixed(2)}%</p>
+        <p><strong>Размер ордера в рублях (H):</strong> ${H.toFixed(2)} RUB</p>
+        <p><strong>Размер ордера в USD (I):</strong> ${I.toFixed(2)} USD</p>
+        <p><strong>Комиссия в рублях (K):</strong> ${K.toFixed(2)} RUB</p>
+        <p><strong>Комиссия в долларах (L):</strong> ${L.toFixed(2)} USD</p>
+        <p><strong>Обмен комиссии в рубли (M):</strong> ${M.toFixed(2)} RUB</p>
+        <p><strong>Доход трейдера в рублях (N):</strong> ${N.toFixed(2)} RUB</p>
+        <p><strong>Прибыль (O):</strong> ${O.toFixed(2)} RUB</p>
+        <p><strong>Чистая доходность (P):</strong> ${(P * 100).toFixed(2)}%</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
